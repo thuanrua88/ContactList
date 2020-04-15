@@ -35,39 +35,74 @@ public class testMain {
                     break;
                 case 2:
                     Contact ps1 = new Contact();
-                    System.out.println("Enter new contact name: ");
+                    System.out.print("Enter new contact name: ");
                     Scanner input1 = new Scanner(System.in);
                     String name = input1.nextLine();
                     ps1.setName(name);
-                    System.out.println("Enter new contact phone: ");
+                    System.out.print("Enter new contact phone: ");
                     Scanner input2 = new Scanner(System.in);
                     String phone = input2.nextLine();
                     ps1.setPhone(phone);
-                    System.out.println("New contact added: name = " + ps1.getName() + ", phone = " + ps1.getPhone());
-                    conList.addContact(ps1,cl);
+//                    System.out.println("New contact added: name = " + ps1.getName() + ", phone = " + ps1.getPhone());
+                    cl = conList.addContact(ps1);
+                      for (int i = 0; i < cl.size(); i++) {
+                          for (int j = i + 1; j < cl.size(); j++) {
+                              if (cl.get(i).getName().equals(cl.get(j).getName()) && cl.get(i).getPhone().equals(cl.get(j).getPhone())) {
+                                  cl.remove(j);
+                              }
+                          }
+                      }
                     break;
                 case 3:
                     Contact ps2 = new Contact();
-                    Scanner input3 = new Scanner(System.in);
-                    System.out.println("Enter exist contact name: ");
-                    String oldName  = input3.nextLine();
+                    Scanner input = new Scanner(System.in);
+                    System.out.print("Enter exist contact name: ");
+                    String oldName  = input.nextLine();
                     for (int i = 0; i < cl.size(); i++){
-                        if (cl.get(i).getName().equals(oldName)){
-                            System.out.println("Enter new contact name: ");
-                            Scanner input4 = new Scanner(System.in);
-                            String newName = input4.nextLine();
-                            ps2.setName(newName);
-                            System.out.println("Enter new contact phone: ");
-                            Scanner input5 = new Scanner(System.in);
-                            String newPhone = input5.nextLine();
-                            ps2.setPhone(newPhone);
-                            conList.updateContact(oldName,ps2,cl);
-                            break;
+                            if (cl.get(i).getName().equals(oldName) ) {
+                                System.out.print("Enter new contact name: ");
+                                Scanner input4 = new Scanner(System.in);
+                                String newName = input4.nextLine();
+                                ps2.setName(newName);
+                                System.out.print("Enter new contact phone: ");
+                                Scanner input5 = new Scanner(System.in);
+                                String newPhone = input5.nextLine();
+                                ps2.setPhone(newPhone);
+                                cl = conList.updateContact(cl.get(i), ps2);
+                                break;
+                            }
+                        }
+//                        else {
+//                            System.out.println("Name you enter don't exist!");
+//                            break;
+//                        }
+                    break;
+                case 4:
+                    Scanner input3 = new Scanner(System.in);
+                    System.out.print("Enter exist contact name: ");
+                    String delName = input3.nextLine();
+                    for (int i = 0; i < cl.size(); i++) {
+                        if (cl.get(i).getName().equals(delName)) {
+                           cl = conList.removeContact(cl.get(i));
+                        }
+                    }
+                    break;
+                case 5:
+                    Scanner input4 = new Scanner(System.in);
+                    System.out.print("Enter exist contact name: ");
+                    String findName = input4.nextLine();
+                    for (int i = 0; i < cl.size(); i++) {
+                        if (cl.get(i).getName().equals(findName)) {
+                         cl = conList.searchContact(cl.get(i));
                         } else {
-                            System.out.println("Name you enter don't exist!");
+                            System.out.println("not found!");
                             break;
                         }
                     }
+                    break;
+                case 6 :
+                  conList.printList();
+                  break;
             }
             } while (choose != 0);
         }

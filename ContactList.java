@@ -1,24 +1,27 @@
 package ContactList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContactList {
-    public void addContact(Contact contact, List<Contact> contacts){
+    List<Contact> contacts = new ArrayList<>();
+    public List<Contact> addContact(Contact contact){
         contacts.add(contact);
+        return contacts;
     }
-    public void updateContact(String oldContact, Contact newContact, List<Contact> contacts){
-            contacts.set(contacts.indexOf(oldContact),newContact);
+    public List<Contact> updateContact(Contact oldContact, Contact newContact){
+        contacts.set(contacts.lastIndexOf(oldContact),newContact);
+        System.out.print(oldContact.getName() + " was replace with " + newContact.getName());
+        System.out.print("\n Update successful!\n");
+        return contacts;
     }
-    public void removeContact(Contact contact,List<Contact> contacts){
-        System.out.println("Enter exist contact name: " + contact);
-        if (contacts.contains(contact)){
-            contacts.remove(contacts.indexOf(contact));
-            System.out.println("Succesfull, " + contact + "was deleted!");
-        } else {
-            System.out.println("Contact don't exist from list!");
-        }
+    public List<Contact> removeContact(Contact contact){
+        contacts.remove(contacts.indexOf(contact));
+        System.out.println(contact + " was deleted.");
+        System.out.println("Successfully deleted");
+        return contacts;
     }
-    public void printList(Contact ps2, List<Contact> cl){
+    public void printList(){
         System.out.print("Starting phone .....\n\n");
         System.out.println("Available actions: \npress" +
                 "\n0 - to shut down" +
@@ -30,12 +33,8 @@ public class ContactList {
                 "\n6 - to print a list of available actions" +
                 "\nChoose your action:");
     }
-    public void searchContact(String contactName,List<Contact> contacts){
-        System.out.print("Enter exist contact name: ");
-        if (contacts.contains(contactName)){
-            System.out.println("Name : " + contactName + "phone number is ");
-        } else {
-            System.out.print("Name " + contactName + "does not exist");
+    public List<Contact> searchContact(Contact contactName){
+        System.out.println("Name: " + contactName.getName() + " phone number: " + contactName.getPhone());
+        return contacts;
         }
     }
-}
